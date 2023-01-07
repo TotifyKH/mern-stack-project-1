@@ -1,22 +1,31 @@
+import React from 'react';
 import './App.css';
-import {useState, useEffect} from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+//Components and Routers
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+import Home from './pages/Home';
+import About from './pages/About';
+import Login from './pages/Login';
+
 
 //functions
-import {getTest} from './functions/test';
+
 
 function App() {
-  const [data, setData] = useState("Hello World!");
-  useEffect(() => {
-    getTest()
-    .then((result) => {
-      setData(result.message);
-    })
-    .catch(err => console.log(err));
-  }, []);
+
   return (
-    <div className="App">
-      <h1>{data}</h1>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Footer/>
+    </BrowserRouter>
   );
 }
 

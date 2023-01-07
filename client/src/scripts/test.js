@@ -1,8 +1,8 @@
-let baseURL = process.env.REACT_APP_BASE_URL;
+let apiURL = process.env.REACT_APP_API_URL;
 
 export const getTest = async () => {
   try{
-    const result = await fetch(`${baseURL}/test`, {
+    const result = await fetch(`${apiURL}/test`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
