@@ -1,6 +1,6 @@
 import '../css/home.css'
 import '../css/layout.css'
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
       <div className='game-container'>
         <div className='game-item'>
           <h4>Flappy Bird</h4>
-          <button><a onClick={() => {window.location.href="/games/flappyBird"}}>Play</a></button>
+          <button onClick={() => {window.location.href="/games/flappyBird"}}>Play</button>
         </div>
       </div>
     </div>
