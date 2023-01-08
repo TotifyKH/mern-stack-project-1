@@ -4,11 +4,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 //Components and Routers
 import Header from './components/Header';
-import Footer from './components/Footer';
+//import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import About from './pages/About';
 import Login from './pages/Login';
+
+import FlappyBird from './games/flappyBird/FlappyBird';
 
 
 //functions
@@ -23,8 +25,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path='/games/flappyBird' element={<FlappyBird/>}/>
+        
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </BrowserRouter>
   );
 }

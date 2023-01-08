@@ -1,10 +1,12 @@
-
-
-h1 {
-  margin: auto;
-  color: antiquewhite;
+.game-container{
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  grid-row: auto;
+  margin-bottom: 40px;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 20px;
 }
-
 
 
 

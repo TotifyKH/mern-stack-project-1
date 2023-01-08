@@ -1,5 +1,5 @@
 header {
-  background: #333;
+  background: rgba(2, 1, 16, 0.5);
   color: #fff;
   padding: 1em;
   overflow: auto;
@@ -29,13 +29,13 @@ header nav ul li {
   justify-content: center;
 }
 
-header nav ul li a {
+header a {
   color: #fff;
   text-decoration: none;
   
   padding: 1em;
 }
 
-header nav ul li a:hover {
-  background: #444;
+header a:hover {
+  background: rgba(20, 16, 81, 0.7);
 }
