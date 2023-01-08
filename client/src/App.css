@@ -1,0 +1,17 @@
+@keyframes Gradient {
+  0% {
+  background-position: 0% 50%
+  }
+50% {
+background-position: 100% 50%
+}
+100% {
+background-position: 0% 50%
+}
+}
+
+body {
+  background: linear-gradient(-45deg, #ee765281, #e73c7e7b, #23a5d582, #23d5ab85), url('../public/img/pixel_art_bg.jpg');
+  background-size: 400% 400%;
+  animation: Gradient 15s ease infinite;
+}
