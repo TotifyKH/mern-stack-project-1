@@ -1,18 +1,19 @@
 import '../../css/layout.css';
+import './flappyBird.css';
 import {useEffect} from 'react';
 
 
 const FlappyBird = () => {
   useEffect(() => {
-    import('./flappyBird.script');
+    import('./main');
   }, []);
 
   return (
     <>
     <div className='default-container'>
-      <h1>This is the Flappy Bird Game</h1>
-      <button id='myButton'>Click Here</button>
+      <canvas id='flappyBird-canvas'></canvas>
     </div>
+    
     </>
   )
 }

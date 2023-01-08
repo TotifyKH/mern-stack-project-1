@@ -1,0 +1,8 @@
+#flappyBird-canvas{
+  position: relative;
+  
+  width: 900px;
+  height: 600px;
+  background: lightblue;
+  border: 2px solid black;
+}

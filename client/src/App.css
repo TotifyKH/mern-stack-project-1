@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(rgba(9, 27, 70, 0.7), rgba(33, 37, 41, 0.7)), url('../public/img/cave.gif') no-repeat center center fixed;
+  background: linear-gradient(rgba(9, 27, 70, 0.7), rgba(33, 37, 41, 0.7)), url('../public/img/cave.gif') no-repeat;
 
   -webkit-background-size: cover;
   -moz-background-size: cover;
