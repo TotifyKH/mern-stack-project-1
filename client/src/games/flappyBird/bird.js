@@ -13,19 +13,19 @@ export default class Bird {
     this.frame = 0;
 
     let birdImage = new Image();
-    birdImage.src = '/img/yellowbird-upflap.png';
+    birdImage.src = '/img/flappyBird/yellowbird-upflap.png';
     this.birdImagesArray.push(birdImage);
     birdImage = new Image();
-    birdImage.src = '/img/yellowbird-midflap.png';
+    birdImage.src = '/img/flappyBird/yellowbird-midflap.png';
     this.birdImagesArray.push(birdImage);
     birdImage = new Image();
-    birdImage.src = '/img/yellowbird-downflap.png';
+    birdImage.src = '/img/flappyBird/yellowbird-downflap.png';
     this.birdImagesArray.push(birdImage);
     birdImage = new Image();
-    birdImage.src = '/img/yellowbird-midflap.png';
+    birdImage.src = '/img/flappyBird/yellowbird-midflap.png';
     this.birdImagesArray.push(birdImage);
     birdImage = new Image();
-    birdImage.src = '/img/yellowbird-upflap.png';
+    birdImage.src = '/img/flappyBird/yellowbird-upflap.png';
     this.birdImagesArray.push(birdImage);
     birdImage = new Image();
     
@@ -61,8 +61,8 @@ export default class Bird {
       console.log('flap');
     };
     
-    if( this.frame != 0  && this.frame % 5 == 0){
-      if(this.imageFrame == 4)
+    if( this.frame !== 0  && this.frame % 5 === 0){
+      if(this.imageFrame === 4)
         this.imageFrame = 0;
       else
         this.imageFrame++;

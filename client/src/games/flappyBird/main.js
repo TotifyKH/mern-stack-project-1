@@ -95,7 +95,7 @@ window.addEventListener('keydown', function (e) {
 
 
 function handleObstacles(data) {
-  if (data.frame % 150 === 0) {
+  if (data.frame % 120 === 0) {
     obstacleArray.unshift(new Obstacle(data.canvas));
   }
   for (let i = 0; i < obstacleArray.length; i++) {
