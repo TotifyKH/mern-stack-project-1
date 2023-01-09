@@ -22,11 +22,11 @@ const bird = new Bird();
 
 //Sounds
 const scoreSound = new Audio();
-scoreSound.src = '/sound/flappyBird/sfx_point.wav';
+scoreSound.src = '/sounds/flappyBird/sfx_point.wav';
 scoreSound.volume = 0.3;
 
 const deathSound = new Audio();
-deathSound.src = '/sound/flappyBird/sfx_hit.wav';
+deathSound.src = '/sounds/flappyBird/sfx_hit.wav';
 deathSound.volume = 0.3;
 
 //Pipes creation and handler
@@ -50,12 +50,12 @@ function animate() {
     ctx.fillStyle = 'white';
     ctx.fillText(`GAME OVER! YOUR SCORE IS ${score}`, 100, canvas.height/2);
 
-    fetch(`${API_URL}/games/flappyBird/newScore`, {
-      method: "post",
-      headers: { 'Content-Type': "application/json" },
-      body: JSON.stringify({ score }),
-    })
-    .catch(err => console.log(err));
+    // fetch(`${API_URL}/games/flappyBird/newScore`, {
+    //   method: "post",
+    //   headers: { 'Content-Type': "application/json" },
+    //   body: JSON.stringify({ score }),
+    // })
+    // .catch(err => console.log(err));
     gameActive = false;
     return;
   }

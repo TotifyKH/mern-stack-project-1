@@ -31,7 +31,7 @@ export default class Bird {
     
     //Bird sound
     this.audio = new Audio();
-    this.audio.src = '/sound/flappyBird/sfx_wing.wav';
+    this.audio.src = '/sounds/flappyBird/sfx_wing.wav';
     this.audio.volume = 0.3;
   }
 

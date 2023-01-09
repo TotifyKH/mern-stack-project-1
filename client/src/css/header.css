@@ -31,6 +31,7 @@ header nav {
 }
 
 header nav ul {
+  font-family: 'Arcade2';
   list-style: none;
   margin: 0;
   padding: 0;

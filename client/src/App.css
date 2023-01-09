@@ -1,4 +1,17 @@
+@font-face {
+  font-family: 'Arcade1'; /* Specify the font name */
+  src: url('../public/font/arcade_font.otf'); /* Specify the location of the font file */
+}
+
+@font-face {
+  font-family: 'Arcade2'; /* Specify the font name */
+  src: url('../public/font/flappy_font.TTF'); /* Specify the location of the font file */
+}
+
+
+
 body {
+  font-family: 'Arcade1'; /* Use the font for the body element */
   background: linear-gradient(rgba(9, 27, 70, 0.7), rgba(33, 37, 41, 0.7)), url('../public/img/cave.gif') no-repeat;
 
   -webkit-background-size: cover;
