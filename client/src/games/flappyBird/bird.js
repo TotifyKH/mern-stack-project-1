@@ -3,13 +3,43 @@ export default class Bird {
     this.x = 150;
     this.y = 200;
     this.vy = 0;
-    this.width = 20;
+    this.width = 30;
     this.height = 20;
     this.gravity = 0.5;
+    
+    //Bird Image
+    this.birdImagesArray = [];
+    this.imageFrame = 0;
+    this.frame = 0;
+
+    let birdImage = new Image();
+    birdImage.src = '/img/yellowbird-upflap.png';
+    this.birdImagesArray.push(birdImage);
+    birdImage = new Image();
+    birdImage.src = '/img/yellowbird-midflap.png';
+    this.birdImagesArray.push(birdImage);
+    birdImage = new Image();
+    birdImage.src = '/img/yellowbird-downflap.png';
+    this.birdImagesArray.push(birdImage);
+    birdImage = new Image();
+    birdImage.src = '/img/yellowbird-midflap.png';
+    this.birdImagesArray.push(birdImage);
+    birdImage = new Image();
+    birdImage.src = '/img/yellowbird-upflap.png';
+    this.birdImagesArray.push(birdImage);
+    birdImage = new Image();
+    
+    //Bird sound
+    this.audio = new Audio();
+    this.audio.src = '/sound/flappyBird/sfx_wing.wav';
+    this.audio.volume = 0.3;
   }
 
   update(data){
-    
+
+    if(this.frame > 0)
+      this.frame--;
+
     if(this.y > data.canvas.height - this.height){
       this.y = data.canvas.height - this.height;
       this.vy = 0;
@@ -23,16 +53,27 @@ export default class Bird {
     }
 
     if(data.spacePressed && this.y > this.height*3){ 
+      this.audio.currentTime = 0;
+      this.audio.play();
       this.flap()
+      this.frame = 20;
+      this.imageFrame = 0;
       console.log('flap');
     };
     
+    if( this.frame != 0  && this.frame % 5 == 0){
+      if(this.imageFrame == 4)
+        this.imageFrame = 0;
+      else
+        this.imageFrame++;
+    }
     
   }
 
   draw(ctx){
-    ctx.fillStyle = 'red';
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+      ctx.drawImage(this.birdImagesArray[this.imageFrame], this.x, this.y);
+    // ctx.fillStyle = 'red';
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
   }
   flap(){
     this.vy = -10;

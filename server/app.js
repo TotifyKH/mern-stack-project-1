@@ -3,7 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
+
+//Routes
 const testRouter = require('./routes/test');
+const flappyBirdRouter = require('./routes/games/flappyBird');
 
 require('dotenv').config();
 
@@ -26,9 +29,12 @@ app.use(cors({
   origin: true, 
   credentials: true
 }));
+app.use(express.json());
 
 //ROUTES
 app.use('/test', testRouter);
+//game routes
+app.use('/games/flappyBird', flappyBirdRouter);
 
 //PORT
 const port = process.env.PORT || 5000;

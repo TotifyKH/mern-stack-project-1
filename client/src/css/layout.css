@@ -7,6 +7,25 @@
   justify-content: center;
 }
 
+.leaderboard-container{
+  padding: 1em;
+  display: grid;
+  grid-template-rows: auto ;
+  grid-template-columns: 75% 25%;
+  grid-template-areas:
+  "game leaderboard";
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-item{
+  grid-area: game;
+}
+
+.leaderboard-item{
+  grid-area: leaderboard;
+}
+
 
 
 

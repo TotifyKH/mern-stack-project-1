@@ -10,8 +10,9 @@ const FlappyBird = () => {
 
   return (
     <>
-    <div className='default-container'>
-      <canvas id='flappyBird-canvas'></canvas>
+    <div className='leaderboard-container'>
+      <canvas className='canvas-item' id='flappyBird-canvas'></canvas>
+      <h1 className='leaderboard-item'>LeaderBoard</h1>
     </div>
     
     </>

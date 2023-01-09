@@ -1,6 +1,8 @@
 import Bird from './bird';
 import Obstacle from './obstacles';
 
+let API_URL = process.env.REACT_APP_API_URL;
+
 //Canvas setup 
 const canvas = document.getElementById('flappyBird-canvas');
 const ctx = canvas.getContext('2d');
@@ -17,6 +19,16 @@ let gameActive = true;
 
 //Flappybird object
 const bird = new Bird();
+
+//Sounds
+const scoreSound = new Audio();
+scoreSound.src = '/sound/flappyBird/sfx_point.wav';
+scoreSound.volume = 0.3;
+
+const deathSound = new Audio();
+deathSound.src = '/sound/flappyBird/sfx_hit.wav';
+deathSound.volume = 0.3;
+
 //Pipes creation and handler
 let obstacleArray = [];
 
@@ -25,24 +37,32 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
   //Update Bird
-  bird.update({ canvas, spacePressed, angle });
+  bird.update({ canvas, spacePressed, angle, frame });
   bird.draw(ctx);
   if (spacePressed === true) {
     spacePressed = false;
   }
   handleObstacles({ ctx, canvas, gamespeed, frame })
   if(handleCollisions()){
-    console.log('Game over');
+    //Game over Logic
+    deathSound.play();
     ctx.font = '30px Georgia';
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'white';
     ctx.fillText(`GAME OVER! YOUR SCORE IS ${score}`, 100, canvas.height/2);
+
+    fetch(`${API_URL}/games/flappyBird/newScore`, {
+      method: "post",
+      headers: { 'Content-Type': "application/json" },
+      body: JSON.stringify({ score }),
+    })
+    .catch(err => console.log(err));
     gameActive = false;
     return;
   }
 
   //Score
   ctx.font = '40px Georgia';
-  ctx.fillStyle = 'black';
+  ctx.fillStyle = 'white';
   ctx.fillText(score, canvas.width - 50, 50);
   //Recursion
   requestAnimationFrame(animate);
@@ -89,9 +109,10 @@ function handleObstacles(data) {
 // Collision Detection
 function handleCollisions(){
   for(let i = 0; i < obstacleArray.length; i++){
-    if(obstacleArray[i].x <= 100 && !obstacleArray[i].counted){
+    if(obstacleArray[i].x <= 140 && !obstacleArray[i].counted){
       obstacleArray[i].counted = true;
       score++;
+      scoreSound.play();
     }
     if((bird.x < obstacleArray[i].x + obstacleArray[i].width &&
       bird.x + bird.width > obstacleArray[i].x) &&

@@ -1,7 +1,23 @@
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
 header {
-  background: rgba(2, 1, 16, 0.5);
+  background: linear-gradient(-45deg,    rgba(75, 195, 157, 0.7), rgba(56, 112, 223, 0.7), rgba(108, 7, 190, 0.7), rgba(209, 117, 160, 0.7));
+  background-size: 400% 400%;
   color: #fff;
   padding: 1em;
+  animation: gradient 15s ease infinite;
   overflow: auto;
 }
 
