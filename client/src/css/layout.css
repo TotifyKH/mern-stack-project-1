@@ -24,6 +24,10 @@
 
 .leaderboard-item{
   grid-area: leaderboard;
+  
+  align-items: start;
+  justify-content: center;
+  
 }
 
 

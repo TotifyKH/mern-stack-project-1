@@ -8,3 +8,10 @@
   border: 2px solid white;
 }
 
+
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 0.5em;
+  border: 2px solid rgba(104, 206, 40, 0.7);
+}

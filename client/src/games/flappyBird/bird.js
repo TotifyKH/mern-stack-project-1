@@ -3,7 +3,7 @@ export default class Bird {
     this.x = 150;
     this.y = 200;
     this.vy = 0;
-    this.width = 30;
+    this.width = 25;
     this.height = 20;
     this.gravity = 0.5;
     

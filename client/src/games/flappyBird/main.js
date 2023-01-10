@@ -46,7 +46,7 @@ function animate() {
   if(handleCollisions()){
     //Game over Logic
     deathSound.play();
-    ctx.font = '30px Georgia';
+    ctx.font = '30px Arcade2';
     ctx.fillStyle = 'white';
     ctx.fillText(`GAME OVER! YOUR SCORE IS ${score}`, 100, canvas.height/2);
 
@@ -61,7 +61,7 @@ function animate() {
   }
 
   //Score
-  ctx.font = '40px Georgia';
+  ctx.font = '40px Arcade2';
   ctx.fillStyle = 'white';
   ctx.fillText(score, canvas.width - 50, 50);
   //Recursion
