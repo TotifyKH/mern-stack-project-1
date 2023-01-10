@@ -14,8 +14,9 @@
   grid-template-columns: 75% 25%;
   grid-template-areas:
   "game leaderboard";
-  align-items: center;
-  justify-content: center;
+  align-content: start;
+  justify-content: start;
+ 
 }
 
 .canvas-item{
@@ -24,10 +25,9 @@
 
 .leaderboard-item{
   grid-area: leaderboard;
-  
-  align-items: start;
-  justify-content: center;
-  
+  display: flex;
+  flex-direction: column;
+ 
 }
 
 

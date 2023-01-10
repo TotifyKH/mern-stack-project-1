@@ -6,17 +6,20 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const FlappyBird = () => {
 
+const FlappyBird = () => {
   const [scoreData, setScoreData] = useState([{name:'Player1', score:0}]);
 
-  useEffect(() => {
-    import('./main');
+  const updateLeaderboardData = async() => {
     axios.get(`${API_URL}/games/flappyBird/getTopScores`)
     .then((results) => {
       setScoreData(results.data);
-      console.log(scoreData);
     })
+  }
+
+  useEffect(() => {
+    import('./main');
+    updateLeaderboardData();
   }, []);
 
   return (

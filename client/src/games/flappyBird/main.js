@@ -50,12 +50,23 @@ function animate() {
     ctx.fillStyle = 'white';
     ctx.fillText(`GAME OVER! YOUR SCORE IS ${score}`, 100, canvas.height/2);
 
-    // fetch(`${API_URL}/games/flappyBird/newScore`, {
-    //   method: "post",
-    //   headers: { 'Content-Type': "application/json" },
-    //   body: JSON.stringify({ score }),
-    // })
-    // .catch(err => console.log(err));
+    fetch(`${API_URL}/games/flappyBird/newScore`, {
+      method: "post",
+      headers: { 'Content-Type': "application/json" },
+      body: JSON.stringify({ score }),
+    })
+    .then((result) => {
+      return result.json();
+    })
+    .then((result_json) => {
+      if(result_json.success){
+        //Update the top 10 leaderboard in the flappyBird.jsx
+        // updateLeaderboardData();
+
+      }
+    })
+    .catch(err => console.log(err));
+
     gameActive = false;
     return;
   }

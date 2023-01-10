@@ -17,7 +17,7 @@ router.get('/getTopScores', async(req, res, next) => {
 
 router.post('/newScore', async(req, res, next) => {
   let {score} = req.body;
-  let name = 'Kimheng';
+  let name = 'Totify';
 
   let topScores = await FlappyBirdScores.find()
     .sort({score: -1})
@@ -29,10 +29,12 @@ router.post('/newScore', async(req, res, next) => {
       score: score,
     })
     newScore.save();
+    res.json({success: true});
+    console.log("New Score added");
+  }else{
+    res.json({success: false});
   }
-
-  console.log("New Score added");
-
+  
 })
 
 module.exports = router;
