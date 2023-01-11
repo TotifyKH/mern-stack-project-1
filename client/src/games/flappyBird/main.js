@@ -15,7 +15,7 @@ let angle = 0;
 let frame = 0;
 let score = 0;
 let gamespeed = 2;
-let gameActive = true;
+let gameActive = false;
 
 //Flappybird object
 const bird = new Bird();
@@ -54,6 +54,7 @@ function animate() {
       method: "post",
       headers: { 'Content-Type': "application/json" },
       body: JSON.stringify({ score }),
+      credentials: 'include',
     })
     .then((result) => {
       return result.json();
@@ -83,7 +84,11 @@ function animate() {
   }
 }
 
-animate();
+ctx.font = '40px Arcade2';
+ctx.fillStyle = 'white';
+ctx.fillText(`PRESS SPACE TO START`, 170, canvas.height/2);
+
+//animate();
 
 //Key listener
 window.addEventListener('keydown', function (e) {

@@ -17,7 +17,7 @@ router.get('/getTopScores', async(req, res) => {
 
 router.post('/newScore', async(req, res) => {
   let {score} = req.body;
-  let name = 'User101';
+  let name = req.session.name || 'gamer101';
 
   let topScores = await FlappyBirdScores.find()
     .sort({score: -1})

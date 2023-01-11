@@ -25,7 +25,7 @@ const Header = () => {
     axios.get(`${API_URL}/users/logout`, {withCredentials: true})
     .then((result) => {
       if(result.data.success){
-        navigate('/');
+        window.location.href = '/';
       }else{
         console.log('error logging out');
       }

@@ -16,7 +16,6 @@ router.get('/status', (req, res) => {
 
 router.post('/login', (req, res) => {
   let {name} = req.body;
-  console.log(name);
   req.session.name = name;
   res.json({success: true});
 });
