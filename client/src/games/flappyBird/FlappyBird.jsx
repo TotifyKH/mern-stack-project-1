@@ -3,11 +3,15 @@ import './flappyBird.css';
 import {useEffect, useState} from 'react';
 import Leaderboard from '../../components/Leaderboard';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+const socket = io.connect(`${API_URL}`);
 
 const FlappyBird = () => {
+
+
   const [scoreData, setScoreData] = useState([{name:'Player1', score:0}]);
 
   const updateLeaderboardData = async() => {
@@ -19,8 +23,15 @@ const FlappyBird = () => {
 
   useEffect(() => {
     import('./main');
+    
     updateLeaderboardData();
   }, []);
+
+  useEffect(() => {
+    socket.on('update-flappy-bird-score', async() => {
+      updateLeaderboardData();
+    })
+  }, [])
 
   return (
     <>

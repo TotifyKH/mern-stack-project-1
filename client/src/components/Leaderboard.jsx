@@ -2,7 +2,6 @@ import React from 'react';
 import '../css/leaderboard.css';
 
 const LeaderboardTable = ({data}) => {
-  console.log(data);
   return (
     <table className='leaderboard-table'>
       <thead>

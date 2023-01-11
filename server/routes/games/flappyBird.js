@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const FlappyBirdScores = require('../../models/FlappyBirdScores');
-
+const io = require('socket.io');
 
 
 router.get('/', (req, res, next) => {
+    req.app.io.emit('test', {message: 'Hello'});
     res.send('You have reached the Flappy Bird Route');
 });
 
@@ -29,6 +30,7 @@ router.post('/newScore', async(req, res, next) => {
       score: score,
     })
     newScore.save();
+    req.app.io.emit('update-flappy-bird-score');
     res.json({success: true});
     console.log("New Score added");
   }else{

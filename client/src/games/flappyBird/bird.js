@@ -58,7 +58,6 @@ export default class Bird {
       this.flap()
       this.frame = 20;
       this.imageFrame = 0;
-      console.log('flap');
     };
     
     if( this.frame !== 0  && this.frame % 5 === 0){

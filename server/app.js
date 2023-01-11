@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
+const http = require('http');
+const socket = require('./sockets/socket');
 
 //Routes
 const testRouter = require('./routes/test');
@@ -40,6 +42,9 @@ app.use('/games/flappyBird', flappyBirdRouter);
 const port = process.env.PORT || 5000;
 
 //LISTENER
-const server = app.listen(port, () => {
+const server = http.createServer(app);
+socket(server, app);
+
+server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 })
