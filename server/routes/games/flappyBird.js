@@ -5,20 +5,19 @@ const io = require('socket.io');
 
 
 router.get('/', (req, res, next) => {
-    req.app.io.emit('test', {message: 'Hello'});
     res.send('You have reached the Flappy Bird Route');
 });
 
-router.get('/getTopScores', async(req, res, next) => {
+router.get('/getTopScores', async(req, res) => {
   let topScores = await FlappyBirdScores.find()
     .sort({score: -1})
     .limit(10);
   res.json(topScores);
 })
 
-router.post('/newScore', async(req, res, next) => {
+router.post('/newScore', async(req, res) => {
   let {score} = req.body;
-  let name = 'Totify';
+  let name = 'User101';
 
   let topScores = await FlappyBirdScores.find()
     .sort({score: -1})
@@ -30,6 +29,12 @@ router.post('/newScore', async(req, res, next) => {
       score: score,
     })
     newScore.save();
+
+    //Delete old scores
+    FlappyBirdScores.deleteMany({ score: { $lt: topScores[topScores.length - 1].score } })
+    .then((result) => console.log('scores deleted: '+ result.deletedCount))
+    .catch(err => console.log(err));
+    
     req.app.io.emit('update-flappy-bird-score');
     res.json({success: true});
     console.log("New Score added");

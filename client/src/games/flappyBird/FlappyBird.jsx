@@ -23,7 +23,6 @@ const FlappyBird = () => {
 
   useEffect(() => {
     import('./main');
-    
     updateLeaderboardData();
   }, []);
 
@@ -31,7 +30,7 @@ const FlappyBird = () => {
     socket.on('update-flappy-bird-score', async() => {
       updateLeaderboardData();
     })
-  }, [])
+  }, [socket])
 
   return (
     <>
