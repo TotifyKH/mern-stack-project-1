@@ -10,10 +10,10 @@ const socket = (server, app) => {
   });
 
   io.on('connection', (socket) => {
-    console.log(`User connected Id: ${socket.id}`);
+    // console.log(`User connected Id: ${socket.id}`);
 
     socket.on('disconnect', () => {
-      console.log(`User disconnected Id:${socket.id}`);
+      // console.log(`User disconnected Id:${socket.id}`);
     });
   });
 

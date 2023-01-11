@@ -4,11 +4,15 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 const http = require('http');
-const socket = require('./sockets/socket');
+const socket = require('./configs/socket');
+const mongoSession = require('./configs/session');
+const cookieParser = require('cookie-parser');
 
 //Routes
 const testRouter = require('./routes/test');
+const usersRouter = require('./routes/users');
 const flappyBirdRouter = require('./routes/games/flappyBird');
+
 
 require('dotenv').config();
 
@@ -32,9 +36,13 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+mongoSession(app);
 
 //ROUTES
 app.use('/test', testRouter);
+app.use('/users', usersRouter);
 //game routes
 app.use('/games/flappyBird', flappyBirdRouter);
 

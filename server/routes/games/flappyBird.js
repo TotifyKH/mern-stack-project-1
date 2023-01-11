@@ -32,7 +32,7 @@ router.post('/newScore', async(req, res) => {
 
     //Delete old scores
     FlappyBirdScores.deleteMany({ score: { $lt: topScores[topScores.length - 1].score } })
-    .then((result) => console.log('scores deleted: '+ result.deletedCount))
+    .then((result) => console.log('Flappybird scores deleted: '+ result.deletedCount))
     .catch(err => console.log(err));
     
     req.app.io.emit('update-flappy-bird-score');
