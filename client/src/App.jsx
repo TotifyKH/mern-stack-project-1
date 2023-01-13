@@ -12,6 +12,7 @@ import About from './pages/About';
 import Login from './pages/Login';
 
 import FlappyBird from './games/flappyBird/FlappyBird';
+import Pong2 from './games/pong2/Pong2';
 
 
 //functions
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path='/games/flappyBird' element={<FlappyBird/>}/>
+        <Route path='/games/pong2' element={<Pong2/>}/>
         
       </Routes>
       {/* <Footer/> */}

@@ -35,6 +35,10 @@ const Home = () => {
           <h4>Flappy Bird</h4>
           <button onClick={() => {window.location.href="/games/flappyBird"}}>Play</button>
         </div>
+        <div className='game-item'>
+          <h4>Pong 2</h4>
+          <button onClick={() => {window.location.href="/games/pong2"}}>Play</button>
+        </div>
       </div>
     </div>
     </>
