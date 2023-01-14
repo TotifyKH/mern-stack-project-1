@@ -4,6 +4,7 @@ export default class Player {
     this.y = y;
     this.width = 10;
     this.height = 80;
+    this.score = 0;
   }
 
   update(){

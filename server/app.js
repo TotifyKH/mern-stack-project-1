@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');
 const testRouter = require('./routes/test');
 const usersRouter = require('./routes/users');
 const flappyBirdRouter = require('./routes/games/flappyBird');
+const pong2Router = require('./routes/games/pong2');
 
 
 require('dotenv').config();
@@ -45,7 +46,7 @@ app.use('/test', testRouter);
 app.use('/users', usersRouter);
 //game routes
 app.use('/games/flappyBird', flappyBirdRouter);
-
+app.use('/games/pong2', pong2Router);
 //PORT
 const port = process.env.PORT || 5000;
 
