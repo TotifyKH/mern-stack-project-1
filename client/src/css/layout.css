@@ -15,8 +15,8 @@
   grid-template-columns: 75% 25%;
   grid-template-areas:
   "game leaderboard";
-  align-content: start;
-  justify-content: start;
+  align-content: center;
+  justify-content: center;
  
 }
 
@@ -28,6 +28,7 @@
   grid-area: leaderboard;
   display: flex;
   flex-direction: column;
+  ;
  
 }
 

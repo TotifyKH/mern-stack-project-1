@@ -10,8 +10,15 @@ const Pong2 = () => {
 
   return (
     <>
-    <div className='default-container'>
-      <canvas id='pong2-canvas'></canvas>  
+    <div className='leaderboard-container'>
+      <div className='leaderboard-item'>
+        <input type='text' placeholder='gameId'></input>
+        <div>
+        <button>Create Game</button>
+        <button>Join Game</button>
+        </div>
+      </div>
+      <canvas className='canvas-item' id='pong2-canvas'></canvas>  
     </div>
     
     </>

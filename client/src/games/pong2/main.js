@@ -1,6 +1,12 @@
 import Player from "./player";
+import io from 'socket.io-client';
+import axios from 'axios';
 
 let API_URL = process.env.REACT_APP_API_URL;
+const socket = io(API_URL);
+
+//Create or Join Room
+
 
 //Canvas setup 
 const canvas = document.getElementById('pong2-canvas');
@@ -10,7 +16,7 @@ canvas.height = 500;
 
 //Tracking variables
 let frame = 0;
-let gameActive = false;
+let gameActive =false;
 
 const player1 = new Player(40,200);
 const player2 = new Player(canvas.width-50, 200);

@@ -41,18 +41,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 mongoSession(app);
 
+//LISTENER
+const server = http.createServer(app);
+socket(server, app);
+
 //ROUTES
 app.use('/test', testRouter);
 app.use('/users', usersRouter);
 //game routes
 app.use('/games/flappyBird', flappyBirdRouter);
 app.use('/games/pong2', pong2Router);
+
 //PORT
 const port = process.env.PORT || 5000;
 
-//LISTENER
-const server = http.createServer(app);
-socket(server, app);
 
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
