@@ -6,7 +6,16 @@ let API_URL = process.env.REACT_APP_API_URL;
 const socket = io(API_URL);
 
 //Create or Join Room
+let createButton = document.getElementById('create-pong2-room');
+let joinButton = document.getElementById('join-pong2-room');
 
+createButton.onclick = () => {
+  console.log('hi');
+}
+
+joinButton.onclick = () => {
+  console.log('wo');
+}
 
 //Canvas setup 
 const canvas = document.getElementById('pong2-canvas');

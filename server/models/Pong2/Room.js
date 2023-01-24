@@ -6,6 +6,11 @@ const Pong2RoomSchema = new mongoose.Schema({
     required: true,
     integer: true,
     max: 2,
+  },
+  roomId:{
+    type: Number,
+    required: true,
+    integer: true,
   }
 });
 

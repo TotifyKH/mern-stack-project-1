@@ -14,8 +14,8 @@ const Pong2 = () => {
       <div className='leaderboard-item'>
         <input type='text' placeholder='gameId'></input>
         <div>
-        <button>Create Game</button>
-        <button>Join Game</button>
+        <button id='create-pong2-room'>Create Game</button>
+        <button id='join-pong2-room'>Join Game</button>
         </div>
       </div>
       <canvas className='canvas-item' id='pong2-canvas'></canvas>  
