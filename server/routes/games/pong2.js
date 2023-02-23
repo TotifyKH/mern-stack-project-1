@@ -14,6 +14,7 @@ router.get('/checkAvailableRoom', (req, res) => {
 
 router.post('/joinRoom', (req, res) => {
   let {roomId} = req.body;
+  console.log(roomId);
   Pong2Room.findOne({roomId})
   .then((room) => {
     if(room){
@@ -22,9 +23,9 @@ router.post('/joinRoom', (req, res) => {
         res.json({roomStatus: 1})
       }else{
         //Room available to join
+        req.session.pong2RoomId = roomId;
         room.players++;
         room.save();
-        req.session.pong2RoomId = roomId;
         res.json({roomStatus: 0})
         //increment the players count of this room room.players++ and update in the database;
       }
@@ -60,6 +61,8 @@ router.post('/createRoom', async (req, res) => {
   newRoom.save()
     .then((result) => {
       req.session.pong2RoomId = roomId;
+    })
+    .then((result) => {
       res.json(roomId);
     })
     .catch((err) => {

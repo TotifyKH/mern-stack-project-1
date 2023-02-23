@@ -5,16 +5,48 @@ import axios from 'axios';
 let API_URL = process.env.REACT_APP_API_URL;
 const socket = io(API_URL);
 
+
+//Load Scripts
+axios.get(`${API_URL}/users/status`, { withCredentials: true })
+.then((result) => {
+  if(result.data.pong2RoomId){
+    let roomId = result.data.pong2RoomId;
+    let roomNumber = document.getElementById('pong2-room-number');
+    let roomButton = document.getElementById('pong2-button');
+    roomNumber.textContent = `Room: ${roomId}`;
+    roomNumber.style.display = 'block';
+    roomButton.style.display = 'none';
+  }
+})
+
+
 //Create or Join Room
 let createButton = document.getElementById('create-pong2-room');
 let joinButton = document.getElementById('join-pong2-room');
 
 createButton.onclick = () => {
-  console.log('hi');
+  axios.post(`${API_URL}/games/pong2/createRoom`,{name: 'asd'},{withCredentials: true})
+  .then((result) => {
+    console.log(result.data);
+    window.location.href = '/games/pong2';
+  })
+  .catch((err) => console.log(err));
 }
 
 joinButton.onclick = () => {
-  console.log('wo');
+  let inputRoomId = document.getElementById('pong2-roomId');
+  let roomId = inputRoomId.value;
+  axios.post(`${API_URL}/games/pong2/joinRoom`,{roomId},{withCredentials: true})
+  .then((result) => {
+    if(result.data.roomStatus == -1){
+      alert("Room doesn't exist");
+    }else if(result.data.roomStatus == 1){
+      alert("Room is full");
+    }else{
+      window.location.href = '/games/pong2';
+    }
+  })
+  .catch((err) => console.log(err));
 }
 
 //Canvas setup 

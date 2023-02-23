@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 router.get('/status', (req, res) => {
   console.log(req.session);
   if(req.session.name){
-    res.json({isLoggedIn: true, name: req.session.name});
+    res.json({isLoggedIn: true, name: req.session.name, pong2RoomId: req.session.pong2RoomId});
   }else{
     res.json({isLoggedIn: false});
   }
