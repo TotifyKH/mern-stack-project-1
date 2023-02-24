@@ -5,27 +5,52 @@ import axios from 'axios';
 let API_URL = process.env.REACT_APP_API_URL;
 const socket = io(API_URL);
 
+let room = -1;
 
 //Load Scripts
 axios.get(`${API_URL}/users/status`, { withCredentials: true })
 .then((result) => {
   if(result.data.pong2RoomId){
-    let roomId = result.data.pong2RoomId;
+    room = result.data.pong2RoomId;
+    let pong2Room = document.getElementById('pong2-room');
     let roomNumber = document.getElementById('pong2-room-number');
     let roomButton = document.getElementById('pong2-button');
-    roomNumber.textContent = `Room: ${roomId}`;
-    roomNumber.style.display = 'block';
+    roomNumber.textContent = `Room: ${room}`;
+    pong2Room.style.display = 'block';
     roomButton.style.display = 'none';
+    socket.on(`${room}:start-game`, () => {
+      console.log('start the game');
+      gameActive = true;
+      setTimeout(() => {
+        animate();
+      }, 1000);
+    })
   }
 })
+
+.catch(err => {
+  console.log(err);
+})
+
+//Socket Listening
 
 
 //Create or Join Room
 let createButton = document.getElementById('create-pong2-room');
 let joinButton = document.getElementById('join-pong2-room');
+let leaveButton = document.getElementById('leave-pong2-room');
 
 createButton.onclick = () => {
-  axios.post(`${API_URL}/games/pong2/createRoom`,{name: 'asd'},{withCredentials: true})
+  axios.post(`${API_URL}/games/pong2/createRoom`,{name: 'a'},{withCredentials: true})
+  .then((result) => {
+    console.log(result.data);
+    window.location.href = '/games/pong2';
+  })
+  .catch((err) => console.log(err));
+}
+
+leaveButton.onclick = () => {
+  axios.post(`${API_URL}/games/pong2/leaveRoom`,{name: 'a'},{withCredentials: true})
   .then((result) => {
     console.log(result.data);
     window.location.href = '/games/pong2';
@@ -65,7 +90,6 @@ const player2 = new Player(canvas.width-50, 200);
 //Animation Loop
 function animate(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  requestAnimationFrame(animate);
   frame++;
   if(frame > 15000){
     frame = 0;
@@ -73,6 +97,9 @@ function animate(){
   // game logic goes here
   player1.draw(ctx);
   player2.draw(ctx);
+  
+  if(gameActive)
+    requestAnimationFrame(animate);
 }
 
 //Loading Screen Logic
@@ -98,8 +125,8 @@ function loadingScreen(){
   if(frame > 120){
     frame = 0;
   }
- 
-  requestAnimationFrame(loadingScreen);
+  if(!gameActive)
+    requestAnimationFrame(loadingScreen);
 }
 
 if(gameActive){

@@ -26,6 +26,9 @@ router.post('/joinRoom', (req, res) => {
         req.session.pong2RoomId = roomId;
         room.players++;
         room.save();
+        setTimeout(() => {
+          req.app.io.emit(`${roomId}:start-game`);
+        }, 3000); // add a 5 second delay
         res.json({roomStatus: 0})
         //increment the players count of this room room.players++ and update in the database;
       }
@@ -39,8 +42,30 @@ router.post('/joinRoom', (req, res) => {
   })
 })
 
+router.post('/leaveRoom', (req, res) => {
+  Pong2Room.findOne({roomId: req.session.pong2RoomId})
+  .then((room) => {
+    room.players--;
+    room.save();
+    if(room.players == 0){
+      //Delete the room if its empty
+      Pong2Room.remove({roomId: room.roomId})
+      .then(() => {
+        console.log(`Deleted room ${room.roomId}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+    delete req.session.pong2RoomId;
+    res.json({success: true});
+  })
+  .catch(err => {
+    console.log(err);
+  })
+})
+
 router.post('/createRoom', async (req, res) => {
-  console.log('reached this route');
   let roomId;
   let uniqueId = false;
   //Loop and check for a uniqueId
