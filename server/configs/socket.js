@@ -1,4 +1,6 @@
 const socketIO = require('socket.io');
+const {gameLoop} = require('../helpers/pongGame');
+const games = new Map();
 
 const socket = (server, app) => {
   const io = socketIO(server, {
@@ -11,7 +13,21 @@ const socket = (server, app) => {
 
   io.on('connection', (socket) => {
     // console.log(`User connected Id: ${socket.id}`);
-    
+    socket.on('test', (roomId) => {
+      games.set(roomId, {num: 1});
+      console.log('TEST REACHED');
+      const gameState = games.get(roomId);
+
+      gameState.intervalId = setInterval(() => {
+        gameLoop(io, gameState);
+        if(gameState.num === 10){
+          clearInterval(gameState.intervalId);
+          games.delete(roomId);
+        }
+      }, 1000);
+
+      
+    })
 
     socket.on('disconnect', () => {
       // console.log(`User disconnected Id:${socket.id}`);

@@ -18,12 +18,17 @@ axios.get(`${API_URL}/users/status`, { withCredentials: true })
     roomNumber.textContent = `Room: ${room}`;
     pong2Room.style.display = 'block';
     roomButton.style.display = 'none';
+    //Socket listening
     socket.on(`${room}:start-game`, () => {
       console.log('start the game');
       gameActive = true;
       setTimeout(() => {
         animate();
       }, 1000);
+    })
+    //Updating gameState
+    socket.on("gameState", () => {
+      console.log('gameState');
     })
   }
 })
@@ -44,6 +49,7 @@ createButton.onclick = () => {
   axios.post(`${API_URL}/games/pong2/createRoom`,{name: 'a'},{withCredentials: true})
   .then((result) => {
     console.log(result.data);
+    socket.emit('test');
     window.location.href = '/games/pong2';
   })
   .catch((err) => console.log(err));

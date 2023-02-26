@@ -12,6 +12,7 @@ router.get('/checkAvailableRoom', (req, res) => {
   res.send(availableRoom);
 })
 
+
 router.post('/joinRoom', (req, res) => {
   let {roomId} = req.body;
   console.log(roomId);
@@ -49,7 +50,7 @@ router.post('/leaveRoom', (req, res) => {
     room.save();
     if(room.players == 0){
       //Delete the room if its empty
-      Pong2Room.remove({roomId: room.roomId})
+      Pong2Room.deleteOne({roomId: room.roomId})
       .then(() => {
         console.log(`Deleted room ${room.roomId}`);
       })
