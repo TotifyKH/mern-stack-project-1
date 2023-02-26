@@ -13,6 +13,8 @@ const socket = (server, app) => {
 
   io.on('connection', (socket) => {
     // console.log(`User connected Id: ${socket.id}`);
+    
+    //TEST GAME LOOP
     socket.on('test', (roomId) => {
       games.set(roomId, {num: 1});
       console.log('TEST REACHED');

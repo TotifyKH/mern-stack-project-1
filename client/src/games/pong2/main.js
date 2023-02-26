@@ -6,7 +6,7 @@ let API_URL = process.env.REACT_APP_API_URL;
 const socket = io(API_URL);
 
 let room = -1;
-
+let playerId = 0;
 //Load Scripts
 axios.get(`${API_URL}/users/status`, { withCredentials: true })
 .then((result) => {
@@ -18,6 +18,8 @@ axios.get(`${API_URL}/users/status`, { withCredentials: true })
     roomNumber.textContent = `Room: ${room}`;
     pong2Room.style.display = 'block';
     roomButton.style.display = 'none';
+    //set playerId
+    playerId = result.data.playerId;
     //Socket listening
     socket.on(`${room}:start-game`, () => {
       console.log('start the game');
@@ -107,6 +109,27 @@ function animate(){
   if(gameActive)
     requestAnimationFrame(animate);
 }
+
+//Key Listener
+window.addEventListener('keydown', function (e) {
+  if (e.code === 'KeyS') {
+    e.preventDefault();
+    if(playerId == 1){
+      player1.y += 5;
+    }else{
+      player2.y += 5;
+    }
+  }
+
+  if (e.code === 'KeyW') {
+    e.preventDefault();
+    if(playerId == 1){
+      player1.y -= 5;
+    }else{
+      player2.y -= 5;
+    }
+  }
+});
 
 //Loading Screen Logic
 let xLoading = canvas.width/2 - 200;

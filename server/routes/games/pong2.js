@@ -25,6 +25,7 @@ router.post('/joinRoom', (req, res) => {
       }else{
         //Room available to join
         req.session.pong2RoomId = roomId;
+        req.session.playerId = 2;
         room.players++;
         room.save();
         setTimeout(() => {
@@ -46,24 +47,39 @@ router.post('/joinRoom', (req, res) => {
 router.post('/leaveRoom', (req, res) => {
   Pong2Room.findOne({roomId: req.session.pong2RoomId})
   .then((room) => {
-    room.players--;
-    room.save();
-    if(room.players == 0){
-      //Delete the room if its empty
-      Pong2Room.deleteOne({roomId: room.roomId})
-      .then(() => {
-        console.log(`Deleted room ${room.roomId}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!room) {
+      // The room doesn't exist
+      return null;
     }
-    delete req.session.pong2RoomId;
-    res.json({success: true});
+    room.players--;
+    return room.save();
+  })
+  .then((room) => {
+    if (!room) {
+      // The room doesn't exist, so no need to delete it
+      return;
+    }
+    if (room.players == 0){
+      // Delete the room if it's empty
+      Pong2Room.deleteOne({roomId: room.roomId})
+        .then(() => {
+          console.log(`Deleted room ${room.roomId}`);
+          delete req.session.pong2RoomId;
+          delete req.session.playerId;
+          res.json({success: true});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // The room still has players, so just save it
+      return room.save();
+    }
   })
   .catch(err => {
     console.log(err);
-  })
+  });
+
 })
 
 router.post('/createRoom', async (req, res) => {
@@ -87,6 +103,7 @@ router.post('/createRoom', async (req, res) => {
   newRoom.save()
     .then((result) => {
       req.session.pong2RoomId = roomId;
+      req.session.playerId = 1;
     })
     .then((result) => {
       res.json(roomId);

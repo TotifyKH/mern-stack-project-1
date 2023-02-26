@@ -18,7 +18,7 @@ const Pong2RoomSchema = new mongoose.Schema({
   },
 });
 
-Pong2RoomSchema.index({ createdAt: 1 }, { expireAfterSeconds: 60 * 60 });
+Pong2RoomSchema.index({ createdAt: 1 }, { expireAfterSeconds: 60 * 600 });
 
 const Pong2Room = mongoose.model('Pong2Room', Pong2RoomSchema);
 
