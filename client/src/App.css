@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @font-face {
   font-family: 'Arcade1'; /* Specify the font name */
   src: url('../public/font/arcade_font.otf'); /* Specify the location of the font file */
@@ -5,7 +7,7 @@
 
 @font-face {
   font-family: 'Arcade2'; /* Specify the font name */
-  src: url('../public/font/flappy_font.TTF'); /* Specify the location of the font file */
+  src: url('../public/font/flappy_font.TTF') format('truetype'); /* Specify the location of the font file */
 }
 
 
