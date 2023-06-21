@@ -12,7 +12,7 @@ const LeaderboardTable = ({data}) => {
         </tr>
       </thead>
       <tbody>
-        {data.map(({_id, name, score}, index) => (
+        {data && data.map(({_id, name, score}, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
             <td>{name}</td>

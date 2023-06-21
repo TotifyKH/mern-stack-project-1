@@ -3,35 +3,38 @@ import './flappyBird.css';
 import {useEffect, useState} from 'react';
 import Leaderboard from '../../components/Leaderboard';
 import axios from 'axios';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
 
-const socket = io.connect(`${API_URL}`);
+// const socket = io.connect(`${API_URL}`);
 
 const FlappyBird = () => {
 
 
   const [scoreData, setScoreData] = useState([{name:'Player1', score:0}]);
 
-  const updateLeaderboardData = async() => {
-    axios.get(`${API_URL}/games/flappyBird/getTopScores`)
-    .then((results) => {
-      setScoreData(results.data);
-    })
-  }
+  // const updateLeaderboardData = async () => {
+  //   axios.get(`${API_URL}/games/flappyBird/getTopScores`)
+  //   .then((results) => {
+  //     setScoreData(results.data);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  // }
 
   useEffect(() => {
     import('./main');
-    updateLeaderboardData();
+    // updateLeaderboardData();
   }, []);
 
-  useEffect(() => {
-    socket.on('update-flappy-bird-score', async() => {
-      updateLeaderboardData();
-      console.log('socket listened');
-    })
-  }, [socket])
+  // useEffect(() => {
+  //   socket.on('update-flappy-bird-score', async() => {
+  //     updateLeaderboardData();
+  //     console.log('socket listened');
+  //   })
+  // }, [socket])
 
   return (
     <>
