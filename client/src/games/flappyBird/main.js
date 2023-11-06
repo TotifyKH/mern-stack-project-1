@@ -32,10 +32,28 @@ deathSound.volume = 0.3;
 //Pipes creation and handler
 let obstacleArray = [];
 
+//Synchronize FPS
+let msPrev = window.performance.now()
+const fps = 60
+const msPerFrame = 1000 / fps
+
+
+
 //Animation loop
 function animate() {
+  //Recursion
+  let animationId = requestAnimationFrame(animate)
+  const msNow = window.performance.now()
+  const msPassed = msNow - msPrev
+
+  if (msPassed < msPerFrame) return
+
+  const excessTime = msPassed % msPerFrame
+  msPrev = msNow - excessTime
+  frame = (frame + 1) % 15000;
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
+
   //Update Bird
   bird.update({ canvas, spacePressed, angle, frame });
   bird.draw(ctx);
@@ -43,12 +61,14 @@ function animate() {
     spacePressed = false;
   }
   handleObstacles({ ctx, canvas, gamespeed, frame })
-  if(handleCollisions()){
+
+  if (handleCollisions()) {
     //Game over Logic
+    cancelAnimationFrame(animationId);
     deathSound.play();
     ctx.font = '30px Arcade2';
     ctx.fillStyle = 'white';
-    ctx.fillText(`GAME OVER! YOUR SCORE IS ${score}`, 100, canvas.height/2);
+    ctx.fillText(`GAME OVER! YOUR SCORE IS ${score}`, 100, canvas.height / 2);
 
     fetch(`${API_URL}/games/flappyBird/newScore`, {
       method: "post",
@@ -56,17 +76,17 @@ function animate() {
       body: JSON.stringify({ score }),
       credentials: 'include',
     })
-    .then((result) => {
-      return result.json();
-    })
-    .then((result_json) => {
-      if(result_json.success){
-        //Update the top 10 leaderboard in the flappyBird.jsx
-        // updateLeaderboardData();
+      .then((result) => {
+        return result.json();
+      })
+      .then((result_json) => {
+        if (result_json.success) {
+          //Update the top 10 leaderboard in the flappyBird.jsx
+          // updateLeaderboardData();
 
-      }
-    })
-    .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
 
     gameActive = false;
     return;
@@ -76,24 +96,22 @@ function animate() {
   ctx.font = '40px Arcade2';
   ctx.fillStyle = 'white';
   ctx.fillText(score, canvas.width - 50, 50);
-  //Recursion
-  requestAnimationFrame(animate);
-  frame++;
-  if(frame > 15000){
-    frame = 0;
-  }
+  
+
 }
+
+
 
 ctx.font = '40px Arcade2';
 ctx.fillStyle = 'white';
-ctx.fillText(`PRESS SPACE TO START`, 170, canvas.height/2);
+ctx.fillText(`PRESS SPACE TO START`, 170, canvas.height / 2);
 
 //animate();
 
 //Key listener
 window.addEventListener('keydown', function (e) {
   if (e.code === 'Space' && !spacePressed) {
-    if(!gameActive){
+    if (!gameActive) {
       //NEW GAME
       score = 0;
       bird.y = 200;
@@ -123,22 +141,22 @@ function handleObstacles(data) {
 }
 
 // Collision Detection
-function handleCollisions(){
-  for(let i = 0; i < obstacleArray.length; i++){
-    if(obstacleArray[i].x <= 140 && !obstacleArray[i].counted){
+function handleCollisions() {
+  for (let i = 0; i < obstacleArray.length; i++) {
+    if (obstacleArray[i].x <= 140 && !obstacleArray[i].counted) {
       obstacleArray[i].counted = true;
       score++;
       scoreSound.play();
     }
-    if((bird.x < obstacleArray[i].x + obstacleArray[i].width &&
+    if ((bird.x < obstacleArray[i].x + obstacleArray[i].width &&
       bird.x + bird.width > obstacleArray[i].x) &&
-      (bird.y < obstacleArray[i].top || bird.y + bird.height > obstacleArray[i].bottom) 
-      ){    
-        return true;
-       
-      }
+      (bird.y < obstacleArray[i].top || bird.y + bird.height > obstacleArray[i].bottom)
+    ) {
+      return true;
+
+    }
   }
-  if(bird.y + bird.height > canvas.height - bird.height - 1 || bird.y < 0){
+  if (bird.y + bird.height > canvas.height - bird.height - 1 || bird.y < 0) {
     return true;
   }
   return false;
